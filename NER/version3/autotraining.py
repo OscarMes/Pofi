@@ -4,7 +4,7 @@ import numpy as np
 import pyautogui
 from PIL import Image
 import time 
-
+#si
 pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Oscar\AppData\Local\Tesseract-OCR\tesseract.exe'
 
 while True:
