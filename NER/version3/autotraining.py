@@ -17,6 +17,8 @@ autoincre = 0
 
 
 while True:
+    print(labels)
+    print(texts)
 
     screen = pyautogui.screenshot()
     screen_array = np.array(screen)
@@ -30,8 +32,8 @@ while True:
 
     textinscreen = pytesseract.image_to_string(im_gray , lang='eng')
 
-    #objinscreen = pytesseract.image_to_data(im_gray , lang='eng',output_type='data.frame')
-    objinscreen = pytesseract.image_to_data(im_gray , lang='eng',output_type='string')
+    objinscreen = pytesseract.image_to_data(im_gray , lang='eng',output_type='data.frame')
+    #objinscreen = pytesseract.image_to_data(im_gray , lang='eng',output_type='string')
     text = str(textinscreen)
     #buscar = text.find("pofi")
     #print(text)
@@ -57,35 +59,35 @@ while True:
         for ent in doc.ents:
             #print(ent.text,ent.label_)
             labels.append(str(ent.label_))
-            texts.append(str(ent.text))
+            texts.append(str(ent.text.rstrip('\n')))
             #print(labels)
         #print(texts[2])
         control = False
 
     try:
         
-        x = objinscreen[objinscreen['text'] ==texts[2]]['left'].iloc[0]
-        print(x)
-        y= objinscreen[objinscreen['text'] == texts[2]]['top'].iloc[0]
+        x = objinscreen[objinscreen['text'] ==texts[autoincre]]['left'].iloc[0]
+        #print(x)
+        y= objinscreen[objinscreen['text'] == texts[autoincre]]['top'].iloc[0]
 
-        xfin = objinscreen[objinscreen['text'] == texts[2]]['left'].iloc[0] + \
-            objinscreen[objinscreen['text'] == texts[2]]['width'].iloc[0]
+        xfin = objinscreen[objinscreen['text'] == texts[autoincre]]['left'].iloc[0] + \
+            objinscreen[objinscreen['text'] == texts[autoincre]]['width'].iloc[0]
         
-        yfin = objinscreen[objinscreen['text'] == texts[2]]['top'].iloc[0] + \
-            objinscreen[objinscreen['text'] == texts[2]]['height'].iloc[0]
+        yfin = objinscreen[objinscreen['text'] == texts[autoincre]]['top'].iloc[0] + \
+            objinscreen[objinscreen['text'] == texts[autoincre]]['height'].iloc[0]
 
 
 
-        if labels[autoincre] == "POFI":
-            pyautogui.press("1")
-        elif labels[autoincre] == "ORDEN":
-            pyautogui.press("2")
-        elif labels[autoincre] == "CANCION":
-            pyautogui.press("3")
-        elif labels[autoincre] == "PREPOSICION":
-            pyautogui.press("4")
-        elif labels[autoincre] == "ARTISTA":
-            pyautogui.press("5")
+        # if labels[autoincre] == "POFI":
+        #     pyautogui.press("1")
+        # elif labels[autoincre] == "ORDEN":
+        #     pyautogui.press("2")
+        # elif labels[autoincre] == "CANCION":
+        #     pyautogui.press("3")
+        # elif labels[autoincre] == "PREPOSICION":
+        #     pyautogui.press("4")
+        # elif labels[autoincre] == "ARTISTA":
+        #     pyautogui.press("5")
         
         pyautogui.moveTo(300+x,200+y,0.5)
         
@@ -97,8 +99,9 @@ while True:
 
         time.sleep(1)
         autoincre += 1
-        print(x,y)
-        print(xfin,yfin)
+        print(autoincre)
+        # print(x,y)
+        # print(xfin,yfin)
 
 
 
